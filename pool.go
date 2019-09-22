@@ -124,7 +124,7 @@ func newDispatcher(workerPool chan *worker, jobQueue chan Job, pool *Pool) *disp
 	go d.dispatch()
 	return d
 }
-func (pool *Pool) running() int64 {
+func (pool *Pool) Running() int64 {
 	return pool.runningWorker
 }
 
