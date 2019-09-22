@@ -7,7 +7,8 @@ import (
 )
 
 func main() {
-
+	//trace.Start(os.Stderr)
+	//defer trace.Stop()
 	pool := NewPool(100000, 100000)
 	count := int64(0)
 	go func() {
@@ -26,13 +27,15 @@ func main() {
 		return
 	}()
 
-	jobCount := 10000000000
+	
+	jobCount := 100000000
 	pool.WaitCount(jobCount)
 	for i := 0; i < jobCount; i++ {
 		k := i
 		pool.JobQueue <- func() {
 			defer pool.JobDone()
 			atomic.AddInt64(&count, int64(k))
+			time.Sleep(time.Microsecond*1000)
 		}
 	}
 	pool.WaitAll()

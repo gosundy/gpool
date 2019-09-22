@@ -1,4 +1,4 @@
-package main
+package gpool
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -14,6 +14,7 @@ import (
 const (
 	RunTimes   = 1000000
 	benchParam = 10
+	benchAntsSize = 200000
 )
 
 func init() {
@@ -84,9 +85,9 @@ func TestRelease(t *testing.T) {
 		assert.Equal(t, grNum, runtime.NumGoroutine(), "All goroutines should be released after Release() call")
 	}()
 
-	pool.WaitCount(10000)
+	pool.WaitCount(100000)
 
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100000; i++ {
 		job := func() {
 			defer pool.JobDone()
 		}
@@ -112,10 +113,44 @@ func BenchmarkPool(b *testing.B) {
 }
 func BenchmarkGoroutineWithFunc(b *testing.B) {
 	var wg sync.WaitGroup
+	for i := 0; i < b.N; i++ {
+		wg.Add(RunTimes)
+		for j := 0; j < RunTimes; j++ {
+			go func() {
+				demoPoolFunc(benchParam)
+				wg.Done()
+			}()
+		}
+		wg.Wait()
+	}
+}
+
+func BenchmarkSemaphoreWithFunc(b *testing.B) {
+	var wg sync.WaitGroup
+	sema := make(chan struct{}, benchAntsSize)
+
+	for i := 0; i < b.N; i++ {
+		wg.Add(RunTimes)
+		for j := 0; j < RunTimes; j++ {
+			sema <- struct{}{}
+			go func() {
+				demoPoolFunc(benchParam)
+				<-sema
+				wg.Done()
+			}()
+		}
+		wg.Wait()
+	}
+}
+
+func BenchmarkGoPoolWithFunc(b *testing.B) {
+	var wg sync.WaitGroup
 
 	pool := NewPool(100000, 100000)
 	defer pool.Release()
 	b.StartTimer()
+
+
 	for i := 0; i < b.N; i++ {
 		pool.WaitCount(RunTimes)
 		for j := 0; j < RunTimes; j++ {
