@@ -1,4 +1,4 @@
-module gopool
+module github.com/gosundy/gpool
 
 go 1.12
 

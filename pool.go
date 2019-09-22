@@ -1,5 +1,4 @@
-package main
-
+package gpool
 import (
 	"errors"
 	"sync"
