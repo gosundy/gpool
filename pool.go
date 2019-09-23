@@ -1,7 +1,9 @@
 package gpool
+
 import (
 	"errors"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -45,10 +47,11 @@ type dispatcher struct {
 	jobQueue   chan Job
 	stop       chan struct{}
 	pool       *Pool
+	once       sync.Once
 }
 
 func (d *dispatcher) dispatch() {
-	timer := time.NewTicker(10 * time.Second)
+	timer := time.NewTicker(10* time.Second)
 	for {
 		select {
 		case job := <-d.jobQueue:
@@ -56,12 +59,13 @@ func (d *dispatcher) dispatch() {
 			case worker := <-d.workerPool:
 				worker.jobChannel <- job
 			default:
-
-				if d.pool.runningWorker < d.pool.maxWorkerSize {
+				runningWorker := atomic.LoadInt64(&d.pool.runningWorker)
+				if runningWorker < d.pool.maxWorkerSize {
+					atomic.AddInt64(&d.pool.runningWorker, 1)
 					newWorker := newWorker(d.workerPool)
 					newWorker.start()
 					newWorker.jobChannel <- job
-					d.pool.runningWorker++
+
 				} else {
 					select {
 					case worker := <-d.workerPool:
@@ -83,33 +87,35 @@ func (d *dispatcher) dispatch() {
 			if len(d.jobQueue) < len(d.workerPool) {
 				select {
 				case w := <-d.workerPool:
+					atomic.AddInt64(&d.pool.runningWorker, -1)
 					w.stop <- struct{}{}
 					<-w.stop
 					w.jobChannel = nil
 					w.stop = nil
 					w = nil
-					d.pool.runningWorker--
+
 				default:
+
 				}
 			}
 		case <-d.stop:
-			for {
-				if len(d.workerPool) > 0 || d.pool.runningWorker > 0 {
-					for i := 0; i < len(d.workerPool); i++ {
-						worker := <-d.workerPool
-
-						worker.stop <- struct{}{}
-						<-worker.stop
-						d.pool.runningWorker--
+			d.once.Do(func() {
+				for {
+					runningWork:=atomic.LoadInt64(&d.pool.runningWorker)
+					if len(d.workerPool) > 0 || runningWork > 0 {
+						for i := 0; i < len(d.workerPool); i++ {
+							worker := <-d.workerPool
+							worker.stop <- struct{}{}
+							<-worker.stop
+							atomic.AddInt64(&d.pool.runningWorker,-1)
+						}
+					}else{
+						return
 					}
-				} else {
-					d.stop <- struct{}{}
-					return
 				}
-
-			}
-
-
+			})
+			d.stop<- struct{}{}
+			return
 		}
 	}
 }
@@ -125,7 +131,8 @@ func newDispatcher(workerPool chan *worker, jobQueue chan Job, pool *Pool) *disp
 	return d
 }
 func (pool *Pool) Running() int64 {
-	return pool.runningWorker
+	runningWorker := atomic.LoadInt64(&pool.runningWorker)
+	return runningWorker - int64(len(pool.dispatcher.workerPool))
 }
 
 // Represents user request, function which should be executed in some worker.

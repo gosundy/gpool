@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	RunTimes   = 1000000
-	benchParam = 10
+	RunTimes      = 1000000
+	benchParam    = 10
 	benchAntsSize = 200000
 )
 
@@ -85,9 +85,9 @@ func TestRelease(t *testing.T) {
 		assert.Equal(t, grNum, runtime.NumGoroutine(), "All goroutines should be released after Release() call")
 	}()
 
-	pool.WaitCount(100000)
+	pool.WaitCount(1000000)
 
-	for i := 0; i < 100000; i++ {
+	for i := 0; i < 1000000; i++ {
 		job := func() {
 			defer pool.JobDone()
 		}
@@ -149,7 +149,6 @@ func BenchmarkGoPoolWithFunc(b *testing.B) {
 	pool := NewPool(100000, 100000)
 	defer pool.Release()
 	b.StartTimer()
-
 
 	for i := 0; i < b.N; i++ {
 		pool.WaitCount(RunTimes)

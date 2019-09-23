@@ -24,9 +24,9 @@ const (
 	// Let the parser choose the encoding.
 	yaml_ANY_ENCODING yaml_encoding_t = iota
 
-	yaml_UTF8_ENCODING    // The default UTF-8 encoding.
-	yaml_UTF16LE_ENCODING // The UTF-16-LE encoding with BOM.
-	yaml_UTF16BE_ENCODING // The UTF-16-BE encoding with BOM.
+	yaml_UTF8_ENCODING     // The default UTF-8 encoding.
+	yaml_UTF16LE_ENCODING  // The UTF-16-LE encoding with BOM.
+	yaml_UTF16BE_ENCODING  // The UTF-16-BE encoding with BOM.
 )
 
 type yaml_break_t int
@@ -36,9 +36,9 @@ const (
 	// Let the parser choose the break type.
 	yaml_ANY_BREAK yaml_break_t = iota
 
-	yaml_CR_BREAK   // Use CR for line breaks (Mac style).
-	yaml_LN_BREAK   // Use LN for line breaks (Unix style).
-	yaml_CRLN_BREAK // Use CR LN for line breaks (DOS style).
+	yaml_CR_BREAK    // Use CR for line breaks (Mac style).
+	yaml_LN_BREAK    // Use LN for line breaks (Unix style).
+	yaml_CRLN_BREAK  // Use CR LN for line breaks (DOS style).
 )
 
 type yaml_error_type_t int
@@ -48,13 +48,13 @@ const (
 	// No error is produced.
 	yaml_NO_ERROR yaml_error_type_t = iota
 
-	yaml_MEMORY_ERROR   // Cannot allocate or reallocate a block of memory.
-	yaml_READER_ERROR   // Cannot read or decode the input stream.
-	yaml_SCANNER_ERROR  // Cannot scan the input stream.
-	yaml_PARSER_ERROR   // Cannot parse the input stream.
-	yaml_COMPOSER_ERROR // Cannot compose a YAML document.
-	yaml_WRITER_ERROR   // Cannot write to the output stream.
-	yaml_EMITTER_ERROR  // Cannot emit a YAML stream.
+	yaml_MEMORY_ERROR    // Cannot allocate or reallocate a block of memory.
+	yaml_READER_ERROR    // Cannot read or decode the input stream.
+	yaml_SCANNER_ERROR   // Cannot scan the input stream.
+	yaml_PARSER_ERROR    // Cannot parse the input stream.
+	yaml_COMPOSER_ERROR  // Cannot compose a YAML document.
+	yaml_WRITER_ERROR    // Cannot write to the output stream.
+	yaml_EMITTER_ERROR   // Cannot emit a YAML stream.
 )
 
 // The pointer position.
@@ -75,11 +75,11 @@ const (
 	// Let the emitter choose the style.
 	yaml_ANY_SCALAR_STYLE yaml_scalar_style_t = iota
 
-	yaml_PLAIN_SCALAR_STYLE         // The plain scalar style.
-	yaml_SINGLE_QUOTED_SCALAR_STYLE // The single-quoted scalar style.
-	yaml_DOUBLE_QUOTED_SCALAR_STYLE // The double-quoted scalar style.
-	yaml_LITERAL_SCALAR_STYLE       // The literal scalar style.
-	yaml_FOLDED_SCALAR_STYLE        // The folded scalar style.
+	yaml_PLAIN_SCALAR_STYLE          // The plain scalar style.
+	yaml_SINGLE_QUOTED_SCALAR_STYLE  // The single-quoted scalar style.
+	yaml_DOUBLE_QUOTED_SCALAR_STYLE  // The double-quoted scalar style.
+	yaml_LITERAL_SCALAR_STYLE        // The literal scalar style.
+	yaml_FOLDED_SCALAR_STYLE         // The folded scalar style.
 )
 
 type yaml_sequence_style_t yaml_style_t
@@ -89,8 +89,8 @@ const (
 	// Let the emitter choose the style.
 	yaml_ANY_SEQUENCE_STYLE yaml_sequence_style_t = iota
 
-	yaml_BLOCK_SEQUENCE_STYLE // The block sequence style.
-	yaml_FLOW_SEQUENCE_STYLE  // The flow sequence style.
+	yaml_BLOCK_SEQUENCE_STYLE  // The block sequence style.
+	yaml_FLOW_SEQUENCE_STYLE   // The flow sequence style.
 )
 
 type yaml_mapping_style_t yaml_style_t
@@ -100,8 +100,8 @@ const (
 	// Let the emitter choose the style.
 	yaml_ANY_MAPPING_STYLE yaml_mapping_style_t = iota
 
-	yaml_BLOCK_MAPPING_STYLE // The block mapping style.
-	yaml_FLOW_MAPPING_STYLE  // The flow mapping style.
+	yaml_BLOCK_MAPPING_STYLE  // The block mapping style.
+	yaml_FLOW_MAPPING_STYLE   // The flow mapping style.
 )
 
 // Tokens
@@ -113,32 +113,32 @@ const (
 	// An empty token.
 	yaml_NO_TOKEN yaml_token_type_t = iota
 
-	yaml_STREAM_START_TOKEN // A STREAM-START token.
-	yaml_STREAM_END_TOKEN   // A STREAM-END token.
+	yaml_STREAM_START_TOKEN  // A STREAM-START token.
+	yaml_STREAM_END_TOKEN    // A STREAM-END token.
 
-	yaml_VERSION_DIRECTIVE_TOKEN // A VERSION-DIRECTIVE token.
-	yaml_TAG_DIRECTIVE_TOKEN     // A TAG-DIRECTIVE token.
-	yaml_DOCUMENT_START_TOKEN    // A DOCUMENT-START token.
-	yaml_DOCUMENT_END_TOKEN      // A DOCUMENT-END token.
+	yaml_VERSION_DIRECTIVE_TOKEN  // A VERSION-DIRECTIVE token.
+	yaml_TAG_DIRECTIVE_TOKEN      // A TAG-DIRECTIVE token.
+	yaml_DOCUMENT_START_TOKEN     // A DOCUMENT-START token.
+	yaml_DOCUMENT_END_TOKEN       // A DOCUMENT-END token.
 
-	yaml_BLOCK_SEQUENCE_START_TOKEN // A BLOCK-SEQUENCE-START token.
-	yaml_BLOCK_MAPPING_START_TOKEN  // A BLOCK-SEQUENCE-END token.
-	yaml_BLOCK_END_TOKEN            // A BLOCK-END token.
+	yaml_BLOCK_SEQUENCE_START_TOKEN  // A BLOCK-SEQUENCE-START token.
+	yaml_BLOCK_MAPPING_START_TOKEN   // A BLOCK-SEQUENCE-END token.
+	yaml_BLOCK_END_TOKEN             // A BLOCK-END token.
 
-	yaml_FLOW_SEQUENCE_START_TOKEN // A FLOW-SEQUENCE-START token.
-	yaml_FLOW_SEQUENCE_END_TOKEN   // A FLOW-SEQUENCE-END token.
-	yaml_FLOW_MAPPING_START_TOKEN  // A FLOW-MAPPING-START token.
-	yaml_FLOW_MAPPING_END_TOKEN    // A FLOW-MAPPING-END token.
+	yaml_FLOW_SEQUENCE_START_TOKEN  // A FLOW-SEQUENCE-START token.
+	yaml_FLOW_SEQUENCE_END_TOKEN    // A FLOW-SEQUENCE-END token.
+	yaml_FLOW_MAPPING_START_TOKEN   // A FLOW-MAPPING-START token.
+	yaml_FLOW_MAPPING_END_TOKEN     // A FLOW-MAPPING-END token.
 
-	yaml_BLOCK_ENTRY_TOKEN // A BLOCK-ENTRY token.
-	yaml_FLOW_ENTRY_TOKEN  // A FLOW-ENTRY token.
-	yaml_KEY_TOKEN         // A KEY token.
-	yaml_VALUE_TOKEN       // A VALUE token.
+	yaml_BLOCK_ENTRY_TOKEN  // A BLOCK-ENTRY token.
+	yaml_FLOW_ENTRY_TOKEN   // A FLOW-ENTRY token.
+	yaml_KEY_TOKEN          // A KEY token.
+	yaml_VALUE_TOKEN        // A VALUE token.
 
-	yaml_ALIAS_TOKEN  // An ALIAS token.
-	yaml_ANCHOR_TOKEN // An ANCHOR token.
-	yaml_TAG_TOKEN    // A TAG token.
-	yaml_SCALAR_TOKEN // A SCALAR token.
+	yaml_ALIAS_TOKEN   // An ALIAS token.
+	yaml_ANCHOR_TOKEN  // An ANCHOR token.
+	yaml_TAG_TOKEN     // A TAG token.
+	yaml_SCALAR_TOKEN  // A SCALAR token.
 )
 
 func (tt yaml_token_type_t) String() string {
@@ -228,16 +228,16 @@ const (
 	// An empty event.
 	yaml_NO_EVENT yaml_event_type_t = iota
 
-	yaml_STREAM_START_EVENT   // A STREAM-START event.
-	yaml_STREAM_END_EVENT     // A STREAM-END event.
-	yaml_DOCUMENT_START_EVENT // A DOCUMENT-START event.
-	yaml_DOCUMENT_END_EVENT   // A DOCUMENT-END event.
-	yaml_ALIAS_EVENT          // An ALIAS event.
-	yaml_SCALAR_EVENT         // A SCALAR event.
-	yaml_SEQUENCE_START_EVENT // A SEQUENCE-START event.
-	yaml_SEQUENCE_END_EVENT   // A SEQUENCE-END event.
-	yaml_MAPPING_START_EVENT  // A MAPPING-START event.
-	yaml_MAPPING_END_EVENT    // A MAPPING-END event.
+	yaml_STREAM_START_EVENT    // A STREAM-START event.
+	yaml_STREAM_END_EVENT      // A STREAM-END event.
+	yaml_DOCUMENT_START_EVENT  // A DOCUMENT-START event.
+	yaml_DOCUMENT_END_EVENT    // A DOCUMENT-END event.
+	yaml_ALIAS_EVENT           // An ALIAS event.
+	yaml_SCALAR_EVENT          // A SCALAR event.
+	yaml_SEQUENCE_START_EVENT  // A SEQUENCE-START event.
+	yaml_SEQUENCE_END_EVENT    // A SEQUENCE-END event.
+	yaml_MAPPING_START_EVENT   // A MAPPING-START event.
+	yaml_MAPPING_END_EVENT     // A MAPPING-END event.
 )
 
 var eventStrings = []string{
@@ -263,7 +263,6 @@ func (e yaml_event_type_t) String() string {
 
 // The event structure.
 type yaml_event_t struct {
-
 	// The event type.
 	typ yaml_event_type_t
 
@@ -332,9 +331,9 @@ const (
 	// An empty node.
 	yaml_NO_NODE yaml_node_type_t = iota
 
-	yaml_SCALAR_NODE   // A scalar node.
-	yaml_SEQUENCE_NODE // A sequence node.
-	yaml_MAPPING_NODE  // A mapping node.
+	yaml_SCALAR_NODE    // A scalar node.
+	yaml_SEQUENCE_NODE  // A sequence node.
+	yaml_MAPPING_NODE   // A mapping node.
 )
 
 // An element of a sequence node.
@@ -377,12 +376,10 @@ type yaml_node_t struct {
 
 	start_mark yaml_mark_t // The beginning of the node.
 	end_mark   yaml_mark_t // The end of the node.
-
 }
 
 // The document structure.
 type yaml_document_t struct {
-
 	// The document nodes.
 	nodes []yaml_node_t
 
@@ -432,29 +429,29 @@ type yaml_parser_state_t int
 const (
 	yaml_PARSE_STREAM_START_STATE yaml_parser_state_t = iota
 
-	yaml_PARSE_IMPLICIT_DOCUMENT_START_STATE           // Expect the beginning of an implicit document.
-	yaml_PARSE_DOCUMENT_START_STATE                    // Expect DOCUMENT-START.
-	yaml_PARSE_DOCUMENT_CONTENT_STATE                  // Expect the content of a document.
-	yaml_PARSE_DOCUMENT_END_STATE                      // Expect DOCUMENT-END.
-	yaml_PARSE_BLOCK_NODE_STATE                        // Expect a block node.
-	yaml_PARSE_BLOCK_NODE_OR_INDENTLESS_SEQUENCE_STATE // Expect a block node or indentless sequence.
-	yaml_PARSE_FLOW_NODE_STATE                         // Expect a flow node.
-	yaml_PARSE_BLOCK_SEQUENCE_FIRST_ENTRY_STATE        // Expect the first entry of a block sequence.
-	yaml_PARSE_BLOCK_SEQUENCE_ENTRY_STATE              // Expect an entry of a block sequence.
-	yaml_PARSE_INDENTLESS_SEQUENCE_ENTRY_STATE         // Expect an entry of an indentless sequence.
-	yaml_PARSE_BLOCK_MAPPING_FIRST_KEY_STATE           // Expect the first key of a block mapping.
-	yaml_PARSE_BLOCK_MAPPING_KEY_STATE                 // Expect a block mapping key.
-	yaml_PARSE_BLOCK_MAPPING_VALUE_STATE               // Expect a block mapping value.
-	yaml_PARSE_FLOW_SEQUENCE_FIRST_ENTRY_STATE         // Expect the first entry of a flow sequence.
-	yaml_PARSE_FLOW_SEQUENCE_ENTRY_STATE               // Expect an entry of a flow sequence.
-	yaml_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_KEY_STATE   // Expect a key of an ordered mapping.
-	yaml_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_VALUE_STATE // Expect a value of an ordered mapping.
-	yaml_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_END_STATE   // Expect the and of an ordered mapping entry.
-	yaml_PARSE_FLOW_MAPPING_FIRST_KEY_STATE            // Expect the first key of a flow mapping.
-	yaml_PARSE_FLOW_MAPPING_KEY_STATE                  // Expect a key of a flow mapping.
-	yaml_PARSE_FLOW_MAPPING_VALUE_STATE                // Expect a value of a flow mapping.
-	yaml_PARSE_FLOW_MAPPING_EMPTY_VALUE_STATE          // Expect an empty value of a flow mapping.
-	yaml_PARSE_END_STATE                               // Expect nothing.
+	yaml_PARSE_IMPLICIT_DOCUMENT_START_STATE            // Expect the beginning of an implicit document.
+	yaml_PARSE_DOCUMENT_START_STATE                     // Expect DOCUMENT-START.
+	yaml_PARSE_DOCUMENT_CONTENT_STATE                   // Expect the content of a document.
+	yaml_PARSE_DOCUMENT_END_STATE                       // Expect DOCUMENT-END.
+	yaml_PARSE_BLOCK_NODE_STATE                         // Expect a block node.
+	yaml_PARSE_BLOCK_NODE_OR_INDENTLESS_SEQUENCE_STATE  // Expect a block node or indentless sequence.
+	yaml_PARSE_FLOW_NODE_STATE                          // Expect a flow node.
+	yaml_PARSE_BLOCK_SEQUENCE_FIRST_ENTRY_STATE         // Expect the first entry of a block sequence.
+	yaml_PARSE_BLOCK_SEQUENCE_ENTRY_STATE               // Expect an entry of a block sequence.
+	yaml_PARSE_INDENTLESS_SEQUENCE_ENTRY_STATE          // Expect an entry of an indentless sequence.
+	yaml_PARSE_BLOCK_MAPPING_FIRST_KEY_STATE            // Expect the first key of a block mapping.
+	yaml_PARSE_BLOCK_MAPPING_KEY_STATE                  // Expect a block mapping key.
+	yaml_PARSE_BLOCK_MAPPING_VALUE_STATE                // Expect a block mapping value.
+	yaml_PARSE_FLOW_SEQUENCE_FIRST_ENTRY_STATE          // Expect the first entry of a flow sequence.
+	yaml_PARSE_FLOW_SEQUENCE_ENTRY_STATE                // Expect an entry of a flow sequence.
+	yaml_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_KEY_STATE    // Expect a key of an ordered mapping.
+	yaml_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_VALUE_STATE  // Expect a value of an ordered mapping.
+	yaml_PARSE_FLOW_SEQUENCE_ENTRY_MAPPING_END_STATE    // Expect the and of an ordered mapping entry.
+	yaml_PARSE_FLOW_MAPPING_FIRST_KEY_STATE             // Expect the first key of a flow mapping.
+	yaml_PARSE_FLOW_MAPPING_KEY_STATE                   // Expect a key of a flow mapping.
+	yaml_PARSE_FLOW_MAPPING_VALUE_STATE                 // Expect a value of a flow mapping.
+	yaml_PARSE_FLOW_MAPPING_EMPTY_VALUE_STATE           // Expect an empty value of a flow mapping.
+	yaml_PARSE_END_STATE                                // Expect nothing.
 )
 
 func (ps yaml_parser_state_t) String() string {
@@ -523,7 +520,6 @@ type yaml_alias_data_t struct {
 // All members are internal. Manage the structure using the
 // yaml_parser_ family of functions.
 type yaml_parser_t struct {
-
 	// Error handling
 
 	error yaml_error_type_t // Error type.
@@ -619,23 +615,23 @@ const (
 	// Expect STREAM-START.
 	yaml_EMIT_STREAM_START_STATE yaml_emitter_state_t = iota
 
-	yaml_EMIT_FIRST_DOCUMENT_START_STATE       // Expect the first DOCUMENT-START or STREAM-END.
-	yaml_EMIT_DOCUMENT_START_STATE             // Expect DOCUMENT-START or STREAM-END.
-	yaml_EMIT_DOCUMENT_CONTENT_STATE           // Expect the content of a document.
-	yaml_EMIT_DOCUMENT_END_STATE               // Expect DOCUMENT-END.
-	yaml_EMIT_FLOW_SEQUENCE_FIRST_ITEM_STATE   // Expect the first item of a flow sequence.
-	yaml_EMIT_FLOW_SEQUENCE_ITEM_STATE         // Expect an item of a flow sequence.
-	yaml_EMIT_FLOW_MAPPING_FIRST_KEY_STATE     // Expect the first key of a flow mapping.
-	yaml_EMIT_FLOW_MAPPING_KEY_STATE           // Expect a key of a flow mapping.
-	yaml_EMIT_FLOW_MAPPING_SIMPLE_VALUE_STATE  // Expect a value for a simple key of a flow mapping.
-	yaml_EMIT_FLOW_MAPPING_VALUE_STATE         // Expect a value of a flow mapping.
-	yaml_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE  // Expect the first item of a block sequence.
-	yaml_EMIT_BLOCK_SEQUENCE_ITEM_STATE        // Expect an item of a block sequence.
-	yaml_EMIT_BLOCK_MAPPING_FIRST_KEY_STATE    // Expect the first key of a block mapping.
-	yaml_EMIT_BLOCK_MAPPING_KEY_STATE          // Expect the key of a block mapping.
-	yaml_EMIT_BLOCK_MAPPING_SIMPLE_VALUE_STATE // Expect a value for a simple key of a block mapping.
-	yaml_EMIT_BLOCK_MAPPING_VALUE_STATE        // Expect a value of a block mapping.
-	yaml_EMIT_END_STATE                        // Expect nothing.
+	yaml_EMIT_FIRST_DOCUMENT_START_STATE        // Expect the first DOCUMENT-START or STREAM-END.
+	yaml_EMIT_DOCUMENT_START_STATE              // Expect DOCUMENT-START or STREAM-END.
+	yaml_EMIT_DOCUMENT_CONTENT_STATE            // Expect the content of a document.
+	yaml_EMIT_DOCUMENT_END_STATE                // Expect DOCUMENT-END.
+	yaml_EMIT_FLOW_SEQUENCE_FIRST_ITEM_STATE    // Expect the first item of a flow sequence.
+	yaml_EMIT_FLOW_SEQUENCE_ITEM_STATE          // Expect an item of a flow sequence.
+	yaml_EMIT_FLOW_MAPPING_FIRST_KEY_STATE      // Expect the first key of a flow mapping.
+	yaml_EMIT_FLOW_MAPPING_KEY_STATE            // Expect a key of a flow mapping.
+	yaml_EMIT_FLOW_MAPPING_SIMPLE_VALUE_STATE   // Expect a value for a simple key of a flow mapping.
+	yaml_EMIT_FLOW_MAPPING_VALUE_STATE          // Expect a value of a flow mapping.
+	yaml_EMIT_BLOCK_SEQUENCE_FIRST_ITEM_STATE   // Expect the first item of a block sequence.
+	yaml_EMIT_BLOCK_SEQUENCE_ITEM_STATE         // Expect an item of a block sequence.
+	yaml_EMIT_BLOCK_MAPPING_FIRST_KEY_STATE     // Expect the first key of a block mapping.
+	yaml_EMIT_BLOCK_MAPPING_KEY_STATE           // Expect the key of a block mapping.
+	yaml_EMIT_BLOCK_MAPPING_SIMPLE_VALUE_STATE  // Expect a value for a simple key of a block mapping.
+	yaml_EMIT_BLOCK_MAPPING_VALUE_STATE         // Expect a value of a block mapping.
+	yaml_EMIT_END_STATE                         // Expect nothing.
 )
 
 // The emitter structure.
@@ -643,7 +639,6 @@ const (
 // All members are internal.  Manage the structure using the @c yaml_emitter_
 // family of functions.
 type yaml_emitter_t struct {
-
 	// Error handling
 
 	error   yaml_error_type_t // Error type.
